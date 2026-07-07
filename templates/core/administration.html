@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block title %}Administration{% endblock %}
+{% block content %}
+<div class="page-header mb-0">
+  <div class="container" style="position:relative;z-index:2;">
+    <h1 class="mb-2">School Administration</h1>
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">Administration</li></ol></nav>
+  </div>
+</div>
+<div style="height:40px;"></div>
+
+{% if head_teacher %}
+<section class="section-padding-sm">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <span class="section-badge">Leadership</span>
+      <h2 class="section-title">Head Teacher</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7" data-aos="fade-up">
+        <div class="p-4 text-center" style="background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:2px solid var(--primary);">
+          {% if head_teacher.profile_image %}<img src="{{ head_teacher.profile_image.url }}" class="staff-avatar" style="width:130px;height:130px;" alt="{{ head_teacher.full_name }}">
+          {% else %}<div class="staff-avatar-placeholder mx-auto" style="width:130px;height:130px;font-size:3rem;">👩‍💼</div>{% endif %}
+          <h4 class="fw-800 mt-3 mb-1">{{ head_teacher.full_name }}</h4>
+          <p style="color:var(--primary);font-weight:700;margin-bottom:4px;">{{ head_teacher.position }}</p>
+          <p class="text-muted small mb-2">{{ head_teacher.qualification }} — {{ head_teacher.specialization|default:"School Administration" }}</p>
+          {% if head_teacher.phone %}<p class="small"><i class="bi bi-telephone-fill me-2" style="color:var(--primary);"></i>{{ head_teacher.phone }}</p>{% endif %}
+          {% if head_teacher.email %}<p class="small"><i class="bi bi-envelope-fill me-2" style="color:var(--primary);"></i>{{ head_teacher.email }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if management %}
+<section class="section-padding-sm" style="background:var(--bg-grey);">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <span class="section-badge">Management</span>
+      <h2 class="section-title">Management Team</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row g-3 justify-content-center">
+      {% for teacher in management %}
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="staff-card">
+          {% if teacher.profile_image %}<img src="{{ teacher.profile_image.url }}" class="staff-avatar" alt="{{ teacher.full_name }}">
+          {% else %}<div class="staff-avatar-placeholder">{{ teacher.first_name.0 }}{{ teacher.last_name.0 }}</div>{% endif %}
+          <div class="staff-name">{{ teacher.full_name }}</div>
+          <div class="staff-position">{{ teacher.position }}</div>
+          <div class="staff-dept">{{ teacher.department }}</div>
+          <span class="badge mt-2" style="background:var(--primary);font-size:0.72rem;">{{ teacher.qualification }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if teaching_staff %}
+<section class="section-padding-sm">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <span class="section-badge">Academic</span>
+      <h2 class="section-title">Teaching Staff</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row g-3">
+      {% for teacher in teaching_staff %}
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}0">
+        <div class="staff-card p-3">
+          {% if teacher.profile_image %}<img src="{{ teacher.profile_image.url }}" class="staff-avatar" style="width:72px;height:72px;" alt="{{ teacher.full_name }}">
+          {% else %}<div class="staff-avatar-placeholder" style="width:72px;height:72px;font-size:1.5rem;">{{ teacher.first_name.0 }}{{ teacher.last_name.0 }}</div>{% endif %}
+          <div class="staff-name" style="font-size:0.85rem;">{{ teacher.full_name }}</div>
+          <div class="staff-position" style="font-size:0.76rem;">{{ teacher.position }}</div>
+          <span class="badge mt-1" style="background:#e8f5e9;color:var(--primary);font-size:0.68rem;">{{ teacher.qualification }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if non_teaching %}
+<section class="section-padding-sm" style="background:var(--bg-grey);">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <span class="section-badge">Support</span>
+      <h2 class="section-title">Non-Teaching Staff</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row g-3">
+      {% for staff in non_teaching %}
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="staff-card">
+          {% if staff.profile_image %}<img src="{{ staff.profile_image.url }}" class="staff-avatar" alt="{{ staff.full_name }}">
+          {% else %}<div class="staff-avatar-placeholder">{{ staff.first_name.0 }}{{ staff.last_name.0 }}</div>{% endif %}
+          <div class="staff-name">{{ staff.full_name }}</div>
+          <div class="staff-position">{{ staff.position }}</div>
+          <div class="staff-dept">{{ staff.department }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

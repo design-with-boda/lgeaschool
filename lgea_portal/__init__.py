@@ -1,0 +1,1 @@
+# LGEA Portal Django Project

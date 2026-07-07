@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Teachers & Staff{% endblock %}
+{% block content %}
+<div class="page-header mb-0">
+  <div class="container" style="position:relative;z-index:2;">
+    <h1 class="mb-2">Teachers & Staff</h1>
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">Teachers</li></ol></nav>
+  </div>
+</div>
+<div style="height:40px;"></div>
+
+<section class="section-padding">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="section-badge">Our Educators</span>
+      <h2 class="section-title">Meet Our Teaching Staff</h2>
+      <div class="section-divider"></div>
+      <p class="text-muted mx-auto" style="max-width:600px;">Our dedicated team of qualified and experienced teachers are committed to providing the best education and guidance for your children.</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      {% for teacher in teachers %}
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}0">
+        <a href="{% url 'teachers:detail' teacher.pk %}" class="text-decoration-none">
+          <div class="staff-card h-100">
+            {% if teacher.profile_image %}<img src="{{ teacher.profile_image.url }}" class="staff-avatar" alt="{{ teacher.full_name }}">
+            {% else %}<div class="staff-avatar-placeholder">{{ teacher.first_name.0 }}{{ teacher.last_name.0 }}</div>{% endif %}
+            <div class="staff-name">{{ teacher.full_name }}</div>
+            <div class="staff-position">{{ teacher.position }}</div>
+            <span class="badge mt-2" style="background:#e8f5e9;color:var(--primary);font-size:0.72rem;">{{ teacher.qualification }}</span>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center p-5"><h6 class="fw-700">No teachers found.</h6></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

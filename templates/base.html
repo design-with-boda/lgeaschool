@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{% block meta_description %}L.G.E.A Staff School Keffi — Official School Portal. Quality Primary Education in Nasarawa State, Nigeria.{% endblock %}">
+  <title>{% block title %}L.G.E.A Staff School, Keffi{% endblock %} | Nasarawa State</title>
+  <!-- Bootstrap 5 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- AOS Animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- ── Announcement Ticker ── -->
+{% if announcements %}
+<div class="announcement-bar d-none d-md-block">
+  <div class="container-fluid px-4">
+    <span class="fw-bold me-3"><i class="bi bi-megaphone-fill me-1"></i> ANNOUNCEMENTS:</span>
+    <span class="ticker">
+      {% for ann in announcements %}📌 {{ ann.title }} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{% endfor %}
+    </span>
+  </div>
+</div>
+{% endif %}
+
+<!-- ── Navigation ── -->
+<nav class="navbar navbar-top navbar-expand-lg sticky-top shadow-sm" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'core:home' %}">
+      {% if school_info.logo %}
+        <img src="{{ school_info.logo.url }}" alt="School Logo" class="navbar-brand-logo">
+      {% else %}
+        <div class="navbar-brand-logo d-flex align-items-center justify-content-center" style="background:linear-gradient(135deg,#004d2d,#006B3F);font-size:1.4rem;font-weight:900;color:#FFD700;">
+          L
+        </div>
+      {% endif %}
+      <div>
+        <div class="school-brand-name">L.G.E.A STAFF SCHOOL</div>
+        <div class="school-brand-sub">Keffi, Nasarawa State</div>
+      </div>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'core:home' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'core:about' %}">About Us</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'administration' %}active{% endif %}" href="{% url 'core:administration' %}">Administration</a></li>
+        <li class="nav-item"><a class="nav-link {% if 'academics' in request.path %}active{% endif %}" href="{% url 'academics:overview' %}">Academics</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Students</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="{% url 'students:list' %}"><i class="bi bi-people me-2"></i>Student Directory</a></li>
+            <li><a class="dropdown-item" href="{% url 'students:results' %}"><i class="bi bi-clipboard-check me-2"></i>Check Results</a></li>
+            <li><a class="dropdown-item" href="{% url 'core:admission' %}"><i class="bi bi-person-plus me-2"></i>Admission Inquiry</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link {% if 'teachers' in request.path %}active{% endif %}" href="{% url 'teachers:list' %}">Teachers</a></li>
+        <li class="nav-item"><a class="nav-link {% if 'gallery' in request.path %}active{% endif %}" href="{% url 'gallery:gallery' %}">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link {% if 'news' in request.path %}active{% endif %}" href="{% url 'news:list' %}">News & Events</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'core:contact' %}">Contact</a></li>
+        <li class="nav-item ms-lg-2">
+          {% if user.is_authenticated %}
+            <a class="nav-link btn-portal px-3 py-2 d-flex align-items-center gap-1" href="{% url 'accounts:my_dashboard' %}">
+              <i class="bi bi-grid-3x3-gap-fill"></i> Dashboard
+            </a>
+          {% else %}
+            <a class="nav-link btn-portal px-3 py-2 d-flex align-items-center gap-1" href="{% url 'accounts:login' %}">
+              <i class="bi bi-box-arrow-in-right"></i> Login Portal
+            </a>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Messages ── -->
+{% if messages %}
+<div class="container mt-3">
+  {% for message in messages %}
+  <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show border-0 shadow-sm" role="alert">
+    <i class="bi bi-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'danger' %}exclamation-triangle{% else %}info-circle{% endif %}-fill me-2"></i>
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ── Page Content ── -->
+{% block content %}{% endblock %}
+
+<!-- ── Footer ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div style="width:50px;height:50px;background:linear-gradient(135deg,#006B3F,#00a854);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#FFD700;font-size:1.3rem;">L</div>
+          <div>
+            <div class="footer-logo-name">L.G.E.A STAFF SCHOOL</div>
+            <div class="footer-logo-sub">Keffi, Nasarawa State</div>
+          </div>
+        </div>
+        <p class="footer-about">{{ school_info.about|truncatewords:40|default:"Providing quality primary education in Keffi, Nasarawa State since 1985. Nurturing excellence in every child." }}</p>
+        <div class="social-links mt-3">
+          {% if school_info.facebook %}<a href="{{ school_info.facebook }}" target="_blank"><i class="bi bi-facebook"></i></a>{% endif %}
+          {% if school_info.twitter %}<a href="{{ school_info.twitter }}" target="_blank"><i class="bi bi-twitter-x"></i></a>{% endif %}
+          {% if school_info.youtube %}<a href="{{ school_info.youtube }}" target="_blank"><i class="bi bi-youtube"></i></a>{% endif %}
+          <a href="{% url 'core:contact' %}"><i class="bi bi-envelope-fill"></i></a>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-6 col-sm-6">
+        <h6 class="footer-heading">Quick Links</h6>
+        <ul class="footer-links">
+          <li><a href="{% url 'core:home' %}"><i class="bi bi-chevron-right"></i>Home</a></li>
+          <li><a href="{% url 'core:about' %}"><i class="bi bi-chevron-right"></i>About School</a></li>
+          <li><a href="{% url 'core:administration' %}"><i class="bi bi-chevron-right"></i>Administration</a></li>
+          <li><a href="{% url 'academics:overview' %}"><i class="bi bi-chevron-right"></i>Academics</a></li>
+          <li><a href="{% url 'core:admission' %}"><i class="bi bi-chevron-right"></i>Admission</a></li>
+          <li><a href="{% url 'gallery:gallery' %}"><i class="bi bi-chevron-right"></i>Gallery</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <h6 class="footer-heading">Student Services</h6>
+        <ul class="footer-links">
+          <li><a href="{% url 'students:list' %}"><i class="bi bi-chevron-right"></i>Student Directory</a></li>
+          <li><a href="{% url 'students:results' %}"><i class="bi bi-chevron-right"></i>Check Results</a></li>
+          <li><a href="{% url 'academics:overview' %}"><i class="bi bi-chevron-right"></i>Subjects & Curriculum</a></li>
+          <li><a href="{% url 'academics:materials' %}"><i class="bi bi-chevron-right"></i>Learning Materials</a></li>
+          <li><a href="{% url 'news:list' %}"><i class="bi bi-chevron-right"></i>News & Events</a></li>
+          <li><a href="{% url 'core:documents' %}"><i class="bi bi-chevron-right"></i>Downloads</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <h6 class="footer-heading">Contact Us</h6>
+        <div class="footer-contact-item">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>{{ school_info.address|default:"No. 1 School Road, Keffi, Nasarawa State, Nigeria" }}</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="bi bi-telephone-fill"></i>
+          <span>{{ school_info.phone|default:"+234 813 456 7890" }}</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="bi bi-envelope-fill"></i>
+          <span>{{ school_info.email|default:"info@lgeastaffschoolkeffi.edu.ng" }}</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="bi bi-clock-fill"></i>
+          <span>Mon – Fri: 7:30 AM – 3:30 PM</span>
+        </div>
+        <a href="{% url 'core:contact' %}" class="btn btn-sm mt-2" style="background:var(--accent);color:var(--primary-dark);font-weight:700;border-radius:8px;">
+          <i class="bi bi-send-fill me-1"></i> Send Message
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© {% now "Y" %} L.G.E.A Staff School, Keffi, Nasarawa State. All Rights Reserved.</span>
+      <span class="mx-3">|</span>
+      <span>Managed by <strong style="color:var(--accent)">L.G.E.A Keffi</strong></span>
+      <span class="mx-3">|</span>
+      <a href="{% url 'accounts:login' %}" style="color:rgba(255,255,255,0.5);text-decoration:none;">Staff Login</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+  AOS.init({ duration: 700, once: true, easing: 'ease-out-cubic', offset: 50 });
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

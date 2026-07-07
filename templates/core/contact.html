@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+<div class="page-header mb-0">
+  <div class="container" style="position:relative;z-index:2;">
+    <h1 class="mb-2">Contact Us</h1>
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">Contact</li></ol></nav>
+  </div>
+</div>
+<div style="height:40px;"></div>
+<section class="section-padding">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-5" data-aos="fade-right">
+        <span class="section-badge">Get In Touch</span>
+        <h2 class="section-title">We'd Love to Hear From You</h2>
+        <div class="section-divider left"></div>
+        <p class="text-muted mb-4">Have a question, concern, or suggestion? We are always happy to help. Reach out to us through any of the channels below.</p>
+        <div class="d-flex flex-column gap-3">
+          <div class="d-flex align-items-start gap-3 p-3" style="background:var(--bg-light);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">📍</div>
+            <div><div class="fw-700 small mb-1">School Address</div><div class="text-muted small">No. 1 School Road, Keffi, Nasarawa State, Nigeria</div></div>
+          </div>
+          <div class="d-flex align-items-start gap-3 p-3" style="background:var(--bg-light);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">📞</div>
+            <div><div class="fw-700 small mb-1">Phone Numbers</div><div class="text-muted small">+234 813 456 7890<br>+234 803 456 7891</div></div>
+          </div>
+          <div class="d-flex align-items-start gap-3 p-3" style="background:var(--bg-light);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">📧</div>
+            <div><div class="fw-700 small mb-1">Email Address</div><div class="text-muted small">info@lgeastaffschoolkeffi.edu.ng</div></div>
+          </div>
+          <div class="d-flex align-items-start gap-3 p-3" style="background:var(--bg-light);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🕐</div>
+            <div><div class="fw-700 small mb-1">Office Hours</div><div class="text-muted small">Monday – Friday: 7:30 AM – 3:30 PM<br>Saturday: 8:00 AM – 12:00 PM</div></div>
+          </div>
+        </div>
+        <!-- Map placeholder -->
+        <div class="mt-4" style="background:var(--bg-grey);border-radius:var(--radius);padding:30px;text-align:center;border:1px solid var(--border);">
+          <div style="font-size:3rem;margin-bottom:12px;">🗺️</div>
+          <h6 class="fw-700 mb-2">Find Us on the Map</h6>
+          <p class="text-muted small mb-3">L.G.E.A Staff School, Keffi<br>Nasarawa State, Nigeria</p>
+          <a href="https://maps.google.com/?q=Keffi+Nasarawa+State+Nigeria" target="_blank" class="btn btn-sm btn-primary"><i class="bi bi-geo-alt-fill me-2"></i>Open in Google Maps</a>
+        </div>
+      </div>
+      <div class="col-lg-7" data-aos="fade-left">
+        <div class="p-4 p-lg-5" style="background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--border);">
+          <h4 class="fw-800 mb-1" style="color:var(--text-dark);">Send Us a Message</h4>
+          <p class="text-muted small mb-4">Fill out the form below and we'll respond within 24 hours.</p>
+          <form method="post" id="contactForm">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                {{ form.name }}
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                {{ form.email }}
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Phone Number</label>
+                {{ form.phone }}
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Subject <span class="text-danger">*</span></label>
+                {{ form.subject }}
+              </div>
+              <div class="col-12">
+                <label class="form-label">Your Message <span class="text-danger">*</span></label>
+                {{ form.message }}
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary px-5 py-2 fw-700" id="sendBtn"><i class="bi bi-send-fill me-2"></i>Send Message</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

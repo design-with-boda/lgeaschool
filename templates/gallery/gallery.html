@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Photo Gallery{% endblock %}
+{% block content %}
+<div class="page-header mb-0">
+  <div class="container" style="position:relative;z-index:2;">
+    <h1 class="mb-2">Photo Gallery</h1>
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">Gallery</li></ol></nav>
+  </div>
+</div>
+<div style="height:40px;"></div>
+<section class="section-padding">
+  <div class="container">
+    <!-- Category Filter -->
+    {% if categories %}
+    <div class="d-flex gap-2 flex-wrap mb-4" data-aos="fade-up">
+      <a href="{% url 'gallery:gallery' %}" class="btn btn-sm {% if not active_category %}btn-primary{% else %}btn-outline-primary{% endif %}">All Photos</a>
+      {% for cat in categories %}
+      <a href="?category={{ cat.slug }}" class="btn btn-sm {% if active_category and active_category.slug == cat.slug %}btn-primary{% else %}btn-outline-primary{% endif %}">{{ cat.name }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row g-3">
+      {% for img in images %}
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}0">
+        <div style="position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+          {% if img.image %}
+          <img src="{{ img.image.url }}" alt="{{ img.title }}" class="gallery-img">
+          {% else %}
+          <div class="gallery-placeholder"><span>📸</span></div>
+          {% endif %}
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.7));padding:12px;transform:translateY(100%);transition:var(--transition);" class="gallery-caption">
+            <div style="color:#fff;font-size:0.82rem;font-weight:600;">{{ img.title }}</div>
+            {% if img.category %}<div style="color:rgba(255,255,255,0.7);font-size:0.72rem;">{{ img.category.name }}</div>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center p-5"><div style="font-size:3rem;margin-bottom:12px;">📸</div><h6 class="fw-700">No photos yet.</h6><p class="text-muted">Gallery images will appear here when uploaded by the administration.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script>
+// Show caption on hover
+document.querySelectorAll('.col-lg-3 > div, .col-md-4 > div, .col-sm-6 > div').forEach(function(card) {
+  const caption = card.querySelector('.gallery-caption');
+  if (!caption) return;
+  card.addEventListener('mouseenter', () => caption.style.transform = 'translateY(0)');
+  card.addEventListener('mouseleave', () => caption.style.transform = 'translateY(100%)');
+});
+</script>
+{% endblock %}

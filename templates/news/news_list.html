@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}News & Events{% endblock %}
+{% block content %}
+<div class="page-header mb-0">
+  <div class="container" style="position:relative;z-index:2;">
+    <h1 class="mb-2">News & Events</h1>
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">News</li></ol></nav>
+  </div>
+</div>
+<div style="height:40px;"></div>
+<section class="section-padding">
+  <div class="container">
+    <!-- Category Filter -->
+    <div class="d-flex gap-2 flex-wrap mb-4" data-aos="fade-up">
+      <a href="{% url 'news:list' %}" class="btn btn-sm {% if not category %}btn-primary{% else %}btn-outline-primary{% endif %}">All</a>
+      <a href="?category=news" class="btn btn-sm {% if category == 'news' %}btn-primary{% else %}btn-outline-primary{% endif %}">News</a>
+      <a href="?category=event" class="btn btn-sm {% if category == 'event' %}btn-primary{% else %}btn-outline-primary{% endif %}">Events</a>
+      <a href="?category=announcement" class="btn btn-sm {% if category == 'announcement' %}btn-primary{% else %}btn-outline-primary{% endif %}">Announcements</a>
+      <a href="?category=achievement" class="btn btn-sm {% if category == 'achievement' %}btn-primary{% else %}btn-outline-primary{% endif %}">Achievements</a>
+    </div>
+    <div class="row g-4">
+      {% for post in posts %}
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}0">
+        <div class="news-card h-100">
+          {% if post.image %}<img src="{{ post.image.url }}" alt="{{ post.title }}" class="news-img">
+          {% else %}<div class="news-img-placeholder">{% if post.category == 'achievement' %}🏆{% elif post.category == 'event' %}📅{% elif post.category == 'announcement' %}📢{% else %}📰{% endif %}</div>{% endif %}
+          <div class="news-body">
+            <span class="news-badge {{ post.category }}">{{ post.get_category_display }}</span>
+            <h5 class="news-title">{{ post.title }}</h5>
+            <p class="news-excerpt">{{ post.content|truncatewords:25 }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="news-date"><i class="bi bi-calendar3 me-1"></i>{{ post.published_at|date:"d M Y" }}</span>
+              <a href="{% url 'news:detail' post.slug %}" class="btn btn-sm btn-primary">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center p-5"><div style="font-size:3rem;margin-bottom:12px;">📰</div><h6 class="fw-700">No posts yet.</h6><p class="text-muted">Check back soon for school news and updates.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}{{ teacher.full_name }}{% endblock %}
+{% block content %}
+<div class="page-header mb-0">
+  <div class="container" style="position:relative;z-index:2;">
+    <h1 class="mb-2">Staff Profile</h1>
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item"><a href="{% url 'teachers:list' %}">Teachers</a></li><li class="breadcrumb-item active">{{ teacher.last_name }}</li></ol></nav>
+  </div>
+</div>
+<div style="height:40px;"></div>
+
+<section class="section-padding">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4" data-aos="fade-right">
+        <div class="p-4 text-center" style="background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--border);">
+          {% if teacher.profile_image %}<img src="{{ teacher.profile_image.url }}" style="width:160px;height:160px;border-radius:50%;object-fit:cover;border:5px solid var(--primary);margin:0 auto 20px;" alt="{{ teacher.full_name }}">
+          {% else %}<div class="mx-auto d-flex align-items-center justify-content-center" style="width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;font-size:4rem;font-weight:700;border:5px solid #fff;box-shadow:0 0 0 3px var(--primary);margin-bottom:20px;">{{ teacher.first_name.0 }}{{ teacher.last_name.0 }}</div>{% endif %}
+          <h4 class="fw-800 mb-1">{{ teacher.full_name }}</h4>
+          <p style="color:var(--primary);font-weight:700;margin-bottom:15px;">{{ teacher.position }}</p>
+          <div class="d-flex flex-wrap gap-2 justify-content-center mb-3">
+            <span class="badge bg-light text-dark border"><i class="bi bi-mortarboard-fill me-1" style="color:var(--primary);"></i>{{ teacher.qualification }}</span>
+            {% if teacher.department %}<span class="badge bg-light text-dark border">{{ teacher.department }}</span>{% endif %}
+          </div>
+          <hr class="my-3">
+          {% if teacher.email %}<div class="d-flex align-items-center justify-content-center gap-2 small text-muted mb-2"><i class="bi bi-envelope-fill"></i>{{ teacher.email }}</div>{% endif %}
+          {% if teacher.phone %}<div class="d-flex align-items-center justify-content-center gap-2 small text-muted"><i class="bi bi-telephone-fill"></i>{{ teacher.phone }}</div>{% endif %}
+        </div>
+      </div>
+      <div class="col-lg-8" data-aos="fade-left">
+        <div class="p-4 p-lg-5" style="background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--border);">
+          <h4 class="fw-700 mb-3 pb-2" style="border-bottom:2px solid var(--primary);color:var(--primary);">Profile Information</h4>
+          {% if teacher.bio %}
+          <div style="line-height:1.8;color:#555;margin-bottom:30px;">{{ teacher.bio|linebreaksbr }}</div>
+          {% else %}
+          <p class="text-muted fst-italic mb-4">No biography provided for this staff member.</p>
+          {% endif %}
+
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="p-3 bg-light rounded border">
+                <div class="small text-muted fw-700 text-uppercase mb-1">Specialization</div>
+                <div class="fw-600">{{ teacher.specialization|default:"General Education" }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 bg-light rounded border">
+                <div class="small text-muted fw-700 text-uppercase mb-1">Date Joined</div>
+                <div class="fw-600">{{ teacher.date_joined|date:"F Y"|default:"Not specified" }}</div>
+              </div>
+            </div>
+          </div>
+
+          {% if subjects %}
+          <h5 class="fw-700 mt-5 mb-3">Subjects Taught</h5>
+          <div class="d-flex flex-wrap gap-2">
+            {% for subject in subjects %}
+            <span class="badge border py-2 px-3" style="background:var(--bg-light);color:var(--text-dark);font-size:0.9rem;"><i class="bi bi-book me-2" style="color:var(--primary);"></i>{{ subject.name }} ({{ subject.class_level }})</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

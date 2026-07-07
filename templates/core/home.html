@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- ── HERO ── -->
+<section class="hero-section">
+  <div class="container position-relative" style="z-index:2;">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="hero-badge fade-in-up"><i class="bi bi-award-fill me-1"></i> Est. {{ info.established_year|default:"1985" }} — Keffi, Nasarawa State</div>
+        <h1 class="hero-title fade-in-up delay-1">
+          Welcome to
+          <span class="highlight">L.G.E.A Staff School</span>
+          <span style="font-size:0.6em;color:rgba(255,255,255,0.8);">Keffi, Nasarawa State</span>
+        </h1>
+        <p class="hero-subtitle fade-in-up delay-2">{{ info.tagline|default:"Nurturing Excellence in Every Child — Quality Primary Education from Nursery to Primary 6." }}</p>
+        <div class="hero-btns fade-in-up delay-3">
+          <a href="{% url 'core:admission' %}" class="btn-hero-primary"><i class="bi bi-person-plus-fill"></i> Admission Information</a>
+          <a href="{% url 'students:results' %}" class="btn-hero-outline"><i class="bi bi-clipboard2-check"></i> Check Results</a>
+          <a href="{% url 'core:contact' %}" class="btn-hero-outline"><i class="bi bi-telephone"></i> Contact School</a>
+        </div>
+        <div class="hero-stats fade-in-up delay-3">
+          <div class="hero-stat">
+            <div class="number">{{ students_count|default:"400" }}+</div>
+            <div class="label">Enrolled Students</div>
+          </div>
+          <div class="hero-stat">
+            <div class="number">{{ teachers_count|default:"25" }}+</div>
+            <div class="label">Qualified Teachers</div>
+          </div>
+          <div class="hero-stat">
+            <div class="number">8</div>
+            <div class="label">Classes Offered</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left">
+        <div class="hero-school-card">
+          <img src="{% static 'images/school_building.png' %}" alt="L.G.E.A Staff School Keffi" class="hero-school-img">
+          <div class="hero-school-overlay">
+            <div class="hero-school-meta">
+              <i class="bi bi-shield-check-fill me-2" style="color:var(--accent);"></i>
+              <span>Government Approved &amp; Accredited</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<section class="stats-section">
+  <div class="container">
+    <div class="row g-0">
+      <div class="col-lg-3 col-sm-6"><div class="stat-box" data-aos="fade-up">
+        <div class="stat-icon"><i class="bi bi-mortarboard-fill"></i></div>
+        <div class="stat-num">{{ students_count|default:"400" }}+</div>
+        <div class="stat-label">Students Enrolled</div>
+      </div></div>
+      <div class="col-lg-3 col-sm-6"><div class="stat-box" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-icon"><i class="bi bi-person-workspace"></i></div>
+        <div class="stat-num">{{ teachers_count|default:"25" }}+</div>
+        <div class="stat-label">Qualified Teachers</div>
+      </div></div>
+      <div class="col-lg-3 col-sm-6"><div class="stat-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-icon"><i class="bi bi-trophy-fill"></i></div>
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Years of Excellence</div>
+      </div></div>
+      <div class="col-lg-3 col-sm-6"><div class="stat-box" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-icon"><i class="bi bi-journal-bookmark-fill"></i></div>
+        <div class="stat-num">8</div>
+        <div class="stat-label">Classes Offered</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ANNOUNCEMENTS ── -->
+{% if announcements %}
+<section class="section-padding-sm" style="background:var(--bg-grey);">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <span class="section-badge"><i class="bi bi-megaphone-fill me-1"></i> Latest</span>
+      <h2 class="section-title">School Announcements</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row g-3">
+      {% for ann in announcements %}
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="announcement-pill">
+          <span class="ann-priority {{ ann.priority }}"></span>
+          <div>
+            <div class="fw-700" style="font-size:0.92rem;font-weight:600;">{{ ann.title }}</div>
+            <div class="text-muted" style="font-size:0.82rem;margin-top:2px;">{{ ann.content|truncatewords:18 }}</div>
+          </div>
+          <span class="badge ms-auto" style="background:{% if ann.priority == 'urgent' %}#e53935{% elif ann.priority == 'high' %}#fb8c00{% else %}var(--primary){% endif %};font-size:0.7rem;">{{ ann.get_priority_display }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ── ABOUT SCHOOL ── -->
+<section class="section-padding">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5" data-aos="fade-right">
+        <div class="about-visual-wrap">
+          <div class="about-visual-main">
+            <img src="{% static 'images/school_building.png' %}" alt="School Building" style="width:100%;height:320px;object-fit:cover;border-radius:16px;display:block;">
+          </div>
+          <div class="about-visual-badges">
+            <div class="avb-item"><i class="bi bi-book-half"></i><span>Accredited Curriculum</span></div>
+            <div class="avb-item"><i class="bi bi-shield-check"></i><span>Safe Learning Space</span></div>
+            <div class="avb-item"><i class="bi bi-award"></i><span>Award-Winning School</span></div>
+            <div class="avb-item"><i class="bi bi-people-fill"></i><span>Community Focused</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7" data-aos="fade-left">
+        <span class="section-badge">About Us</span>
+        <h2 class="section-title">Committed to Excellence in Primary Education</h2>
+        <div class="section-divider left"></div>
+        <p class="text-muted mb-4">{{ info.about|default:"L.G.E.A Staff School, Keffi is a government-owned primary school established in 1985. For over four decades, we have been providing quality primary education to children in Keffi and surrounding communities."|truncatewords:60 }}</p>
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6"><div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-book-fill"></i></div>
+            <h6 class="fw-700">Quality Education</h6>
+            <p class="text-muted small mb-0">Comprehensive curriculum covering all core subjects and extracurricular activities.</p>
+          </div></div>
+          <div class="col-sm-6"><div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-person-badge-fill"></i></div>
+            <h6 class="fw-700">Qualified Teachers</h6>
+            <p class="text-muted small mb-0">Dedicated and certified teachers committed to your child's academic success.</p>
+          </div></div>
+          <div class="col-sm-6"><div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-shield-lock-fill"></i></div>
+            <h6 class="fw-700">Safe Environment</h6>
+            <p class="text-muted small mb-0">A secure and nurturing learning environment where children thrive.</p>
+          </div></div>
+          <div class="col-sm-6"><div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-diagram-3-fill"></i></div>
+            <h6 class="fw-700">Holistic Development</h6>
+            <p class="text-muted small mb-0">We focus on intellectual, physical, moral, and social development.</p>
+          </div></div>
+        </div>
+        <div class="d-flex gap-3">
+          <a href="{% url 'core:about' %}" class="btn btn-primary px-4 py-2"><i class="bi bi-info-circle me-2"></i>Learn More</a>
+          <a href="{% url 'core:admission' %}" class="btn btn-outline-primary px-4 py-2"><i class="bi bi-person-plus me-2"></i>Apply Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLASSES OFFERED ── -->
+<section class="section-padding" style="background:var(--bg-grey);">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="section-badge">Academics</span>
+      <h2 class="section-title">Classes We Offer</h2>
+      <div class="section-divider"></div>
+      <p class="text-muted mx-auto" style="max-width:500px;">From Nursery through Primary 6, we provide a comprehensive education that prepares every child for secondary school and beyond.</p>
+    </div>
+    <div class="row g-3">
+      {% for cls, emoji, desc in classes_list %}
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}0">
+        <div class="class-card h-100">
+          <div class="class-card-body">
+            <div class="class-icon"><i class="bi bi-journal-text"></i></div>
+            <h6 class="fw-700 mb-1">{{ cls }}</h6>
+            <p class="text-muted small mb-0">{{ desc }}</p>
+          </div>
+          <div class="class-card-footer">
+            <a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      {% for cls_data in class_defaults %}
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
+        <div class="class-card h-100">
+          <div class="class-card-body">
+            <div class="class-icon"><i class="bi {{ cls_data.icon }}"></i></div>
+            <h6 class="fw-700 mb-1">{{ cls_data.name }}</h6>
+            <p class="text-muted small mb-0">{{ cls_data.desc }}</p>
+          </div>
+          <div class="class-card-footer">
+            <a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <!-- Static fallback if no context variable at all -->
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up"><div class="class-card h-100"><div class="class-card-body"><div class="class-icon"><i class="bi bi-tree-fill"></i></div><h6 class="fw-700 mb-1">Nursery 1</h6><p class="text-muted small mb-0">Introduction to learning and play-based education</p></div><div class="class-card-footer"><a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a></div></div></div>
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="50"><div class="class-card h-100"><div class="class-card-body"><div class="class-icon"><i class="bi bi-flower1"></i></div><h6 class="fw-700 mb-1">Nursery 2</h6><p class="text-muted small mb-0">Building on foundational skills and early literacy</p></div><div class="class-card-footer"><a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a></div></div></div>
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="100"><div class="class-card h-100"><div class="class-card-body"><div class="class-icon"><i class="bi bi-pencil-fill"></i></div><h6 class="fw-700 mb-1">Primary 1</h6><p class="text-muted small mb-0">Beginning of formal academic education and numeracy</p></div><div class="class-card-footer"><a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a></div></div></div>
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="150"><div class="class-card h-100"><div class="class-card-body"><div class="class-icon"><i class="bi bi-pen-fill"></i></div><h6 class="fw-700 mb-1">Primary 2</h6><p class="text-muted small mb-0">Strengthening core academic skills and comprehension</p></div><div class="class-card-footer"><a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a></div></div></div>
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200"><div class="class-card h-100"><div class="class-card-body"><div class="class-icon"><i class="bi bi-lightbulb-fill"></i></div><h6 class="fw-700 mb-1">Primary 3</h6><p class="text-muted small mb-0">Developing critical thinking and creative reasoning</p></div><div class="class-card-footer"><a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a></div></div></div>
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="250"><div class="class-card h-100"><div class="class-card-body"><div class="class-icon"><i class="bi bi-bar-chart-fill"></i></div><h6 class="fw-700 mb-1">Primary 4</h6><p class="text-muted small mb-0">Advancing core subject knowledge and project work</p></div><div class="class-card-footer"><a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a></div></div></div>
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300"><div class="class-card h-100"><div class="class-card-body"><div class="class-icon"><i class="bi bi-microscope"></i></div><h6 class="fw-700 mb-1">Primary 5</h6><p class="text-muted small mb-0">Deeper subject exploration, science and technology</p></div><div class="class-card-footer"><a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a></div></div></div>
+      <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="350"><div class="class-card h-100"><div class="class-card-body"><div class="class-icon"><i class="bi bi-mortarboard-fill"></i></div><h6 class="fw-700 mb-1">Primary 6</h6><p class="text-muted small mb-0">Common Entrance preparation and final assessments</p></div><div class="class-card-footer"><a href="{% url 'academics:overview' %}" class="text-white text-decoration-none small fw-600"><i class="bi bi-arrow-right-circle me-1"></i>View Subjects</a></div></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWS ── -->
+{% if latest_news %}
+<section class="section-padding">
+  <div class="container">
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-8" data-aos="fade-right">
+        <span class="section-badge">News</span>
+        <h2 class="section-title">Latest News &amp; Announcements</h2>
+        <div class="section-divider left"></div>
+      </div>
+      <div class="col-lg-4 text-lg-end" data-aos="fade-left">
+        <a href="{% url 'news:list' %}" class="btn btn-outline-primary"><i class="bi bi-newspaper me-2"></i>All News</a>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% for post in latest_news %}
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="news-card h-100">
+          {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="news-img">
+          {% else %}
+            <div class="news-img-placeholder"><i class="bi bi-newspaper"></i></div>
+          {% endif %}
+          <div class="news-body">
+            <span class="news-badge {{ post.category }}">{{ post.get_category_display }}</span>
+            <h5 class="news-title">{{ post.title }}</h5>
+            <p class="news-excerpt">{{ post.content|truncatewords:25 }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="news-date"><i class="bi bi-calendar3 me-1"></i>{{ post.published_at|date:"d M Y" }}</span>
+              <a href="{% url 'news:detail' post.slug %}" class="btn btn-sm btn-primary">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ── EVENTS ── -->
+{% if upcoming_events %}
+<section class="section-padding-sm" style="background:var(--bg-grey);">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <span class="section-badge">Calendar</span>
+      <h2 class="section-title">Upcoming Events</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row g-3">
+      {% for event in upcoming_events %}
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="event-card d-flex align-items-start gap-3">
+          <div class="event-date-box">
+            <div class="day">{{ event.start_date|date:"d" }}</div>
+            <div class="month">{{ event.start_date|date:"M" }}</div>
+          </div>
+          <div class="flex-grow-1">
+            <h6 class="fw-700 mb-1">{{ event.title }}</h6>
+            <p class="text-muted small mb-1">{{ event.description|truncatewords:18 }}</p>
+            {% if event.location %}<span class="badge bg-light text-dark" style="font-size:0.72rem;"><i class="bi bi-geo-alt me-1"></i>{{ event.location }}</span>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'core:events' %}" class="btn btn-outline-primary"><i class="bi bi-calendar-event me-2"></i>View All Events</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ── CTA ── -->
+<section class="section-padding" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));position:relative;overflow:hidden;">
+  <div class="container text-center position-relative" style="z-index:2;">
+    <div data-aos="fade-up">
+      <i class="bi bi-building-fill-check" style="font-size:3rem;color:var(--accent);display:block;margin-bottom:16px;"></i>
+      <h2 class="section-title text-white mb-3">Ready to Enroll Your Child?</h2>
+      <p class="text-white-50 mb-4 mx-auto" style="max-width:500px;">Give your child the gift of quality education. Apply for admission today and join hundreds of families who trust L.G.E.A Staff School, Keffi.</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="{% url 'core:admission' %}" class="btn-hero-primary"><i class="bi bi-person-plus-fill me-2"></i>Apply for Admission</a>
+        <a href="{% url 'core:contact' %}" class="btn-hero-outline"><i class="bi bi-telephone-fill me-2"></i>Call Us Today</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

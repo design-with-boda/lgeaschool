@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Select Login Portal{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<style>
+  .portal-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    transition: var(--transition);
+    background: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-dark);
+    display: block;
+  }
+  .portal-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-lg);
+  }
+  .portal-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 16px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="login-page">
+  <div class="container" style="max-width: 900px; position: relative; z-index: 2;">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <div class="login-logo mb-3" style="width:80px;height:80px;margin:0 auto;font-size:2.5rem;background:linear-gradient(135deg,var(--accent),#d4af37);color:var(--primary-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-buildings-fill"></i></div>
+      <h2 class="text-white fw-bold">L.G.E.A Staff School Portal</h2>
+      <p class="text-white-50">Please select your account type to continue.</p>
+    </div>
+    
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <a href="{% url 'accounts:login_role' 'staff' %}" class="portal-card">
+          <div class="portal-icon"><i class="bi bi-person-badge-fill"></i></div>
+          <h5 class="fw-bold mb-2">Staff Portal</h5>
+          <p class="text-muted small mb-0">For Administrators and Teachers.</p>
+        </a>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <a href="{% url 'accounts:login_role' 'student' %}" class="portal-card">
+          <div class="portal-icon"><i class="bi bi-mortarboard-fill"></i></div>
+          <h5 class="fw-bold mb-2">Student Portal</h5>
+          <p class="text-muted small mb-0">For Enrolled Students.</p>
+        </a>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <a href="{% url 'accounts:login_role' 'parent' %}" class="portal-card">
+          <div class="portal-icon"><i class="bi bi-people-fill"></i></div>
+          <h5 class="fw-bold mb-2">Parent Portal</h5>
+          <p class="text-muted small mb-0">For Parents and Guardians.</p>
+        </a>
+      </div>
+    </div>
+    
+    <div class="text-center mt-5 text-white-50 small">
+      <a href="{% url 'core:home' %}" class="text-white-50 text-decoration-none"><i class="bi bi-arrow-left me-1"></i>Return to School Website</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

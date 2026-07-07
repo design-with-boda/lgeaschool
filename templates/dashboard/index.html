@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+{# This template is a legacy stub. All dashboards are rendered via accounts/views.py #}
+<meta http-equiv="refresh" content="0;url={% url 'accounts:dashboard' %}">
+<div class="container py-5 text-center">
+  <p class="text-muted">Redirecting to your dashboard…</p>
+  <a href="{% url 'accounts:dashboard' %}" class="btn btn-primary">Click here if not redirected</a>
+</div>
+{% endblock %}

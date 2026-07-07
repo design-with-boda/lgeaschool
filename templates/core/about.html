@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+<div class="page-header mb-0">
+  <div class="container" style="position:relative;z-index:2;">
+    <h1 class="mb-2">About Our School</h1>
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">About Us</li></ol></nav>
+  </div>
+</div>
+<div style="height:40px;"></div>
+
+<!-- School History -->
+<section class="section-padding">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div style="background:linear-gradient(135deg,var(--primary-dark),var(--primary-light));border-radius:20px;padding:50px 40px;text-align:center;color:#fff;">
+          <div style="font-size:5rem;margin-bottom:20px;">🏫</div>
+          <h3 style="color:#FFD700;font-weight:800;font-size:1.5rem;">L.G.E.A STAFF SCHOOL</h3>
+          <p style="color:rgba(255,255,255,0.8);margin-bottom:24px;">Keffi, Nasarawa State, Nigeria</p>
+          <div class="row g-3 text-center">
+            <div class="col-4"><div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:14px;"><div style="font-size:1.6rem;font-weight:800;color:#FFD700;">{{ info.established_year|default:"1985" }}</div><div style="font-size:0.72rem;opacity:0.8;">Est. Year</div></div></div>
+            <div class="col-4"><div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:14px;"><div style="font-size:1.6rem;font-weight:800;color:#FFD700;">400+</div><div style="font-size:0.72rem;opacity:0.8;">Students</div></div></div>
+            <div class="col-4"><div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:14px;"><div style="font-size:1.6rem;font-weight:800;color:#FFD700;">25+</div><div style="font-size:0.72rem;opacity:0.8;">Teachers</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <span class="section-badge">Our Story</span>
+        <h2 class="section-title">School History</h2>
+        <div class="section-divider left"></div>
+        <p class="text-muted">{{ info.about|default:"L.G.E.A Staff School, Keffi was established in 1985 by the Local Government Education Authority (L.G.E.A) of Keffi Local Government Area, Nasarawa State. For over four decades, the school has been a beacon of quality primary education in the region."|linebreaksbr }}</p>
+        <p class="text-muted mt-3">The school is managed under the supervision of the Nasarawa State Universal Basic Education Board (NSUBEB) and adheres strictly to national primary education standards set by the Universal Basic Education Commission (UBEC).</p>
+        <div class="d-flex gap-3 mt-4">
+          <div class="d-flex align-items-center gap-2"><i class="bi bi-check-circle-fill text-success fs-5"></i><span class="fw-600">UBEC Approved</span></div>
+          <div class="d-flex align-items-center gap-2"><i class="bi bi-check-circle-fill text-success fs-5"></i><span class="fw-600">NSUBEB Accredited</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision & Mission -->
+<section class="section-padding" style="background:var(--bg-grey);">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="section-badge">Our Direction</span>
+      <h2 class="section-title">Vision, Mission & Values</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4" data-aos="fade-up">
+        <div class="vision-card h-100">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🔭</div>
+          <h4>Our Vision</h4>
+          <p style="color:rgba(255,255,255,0.9);line-height:1.8;">{{ info.vision|default:"To be the leading primary school in Nasarawa State, producing academically excellent, morally upright, and socially responsible citizens who will contribute positively to national development." }}</p>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="mission-card h-100">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🎯</div>
+          <h4>Our Mission</h4>
+          <p class="text-muted" style="line-height:1.8;">{{ info.mission|default:"To provide a safe, inclusive, and stimulating learning environment where every child is given the opportunity to discover and develop their full potential through quality education and character formation." }}</p>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="h-100 p-4" style="background:#fff;border-radius:20px;border:2px solid var(--accent);">
+          <div style="font-size:2.5rem;margin-bottom:12px;">⭐</div>
+          <h4 style="color:var(--primary-dark);font-weight:700;margin-bottom:12px;">Core Values</h4>
+          <ul class="list-unstyled">
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-star-fill" style="color:var(--accent);font-size:0.8rem;"></i><span class="fw-500">Excellence</span></li>
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-star-fill" style="color:var(--accent);font-size:0.8rem;"></i><span class="fw-500">Integrity</span></li>
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-star-fill" style="color:var(--accent);font-size:0.8rem;"></i><span class="fw-500">Respect</span></li>
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-star-fill" style="color:var(--accent);font-size:0.8rem;"></i><span class="fw-500">Discipline</span></li>
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-star-fill" style="color:var(--accent);font-size:0.8rem;"></i><span class="fw-500">Teamwork</span></li>
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-star-fill" style="color:var(--accent);font-size:0.8rem;"></i><span class="fw-500">Innovation</span></li>
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-star-fill" style="color:var(--accent);font-size:0.8rem;"></i><span class="fw-500">Service</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Principal's Message -->
+<section class="section-padding">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="section-badge">Leadership</span>
+      <h2 class="section-title">Head Teacher's Message</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-9" data-aos="fade-up">
+        <div class="p-5" style="background:#fff;border-radius:20px;box-shadow:var(--shadow);border-left:6px solid var(--primary);">
+          <div class="row g-4 align-items-center">
+            <div class="col-md-3 text-center">
+              <div class="staff-avatar-placeholder mx-auto" style="width:120px;height:120px;font-size:3rem;">👩‍💼</div>
+              <h6 class="fw-700 mt-3 mb-1">Mrs. Simiatu A. Raji</h6>
+              <span class="badge" style="background:var(--primary);font-size:0.75rem;">Head Teacher</span>
+            </div>
+            <div class="col-md-9">
+              <div style="font-size:3rem;color:var(--primary);opacity:0.3;line-height:1;margin-bottom:8px;">"</div>
+              <p class="text-muted" style="line-height:1.9;font-size:0.96rem;">Welcome to L.G.E.A Staff School, Keffi. It is my privilege and honour to serve as the Head Teacher of this wonderful institution. Our school has been a centre of academic excellence and character development for over four decades.</p>
+              <p class="text-muted mt-3" style="line-height:1.9;font-size:0.96rem;">We are committed to providing a safe, inclusive, and stimulating learning environment where every child can thrive. Our dedicated team of teachers works tirelessly to ensure that each student receives the best possible education. Together with parents and the community, we are building the leaders of tomorrow.</p>
+              <p class="fw-700 mt-3" style="color:var(--primary);">— Mrs. Simiatu A. Raji, B.Ed (Head Teacher)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Achievements -->
+<section class="section-padding-sm" style="background:var(--bg-grey);">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <span class="section-badge">Achievements</span>
+      <h2 class="section-title">Our Achievements</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="000">
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;border:1px solid var(--border);transition:var(--transition);" class="card-hover">
+          <div style="font-size:2.5rem;margin-bottom:10px;">🏆</div>
+          <h6 class="fw-700 mb-2">State Academic Excellence Award 2024</h6>
+          <p class="text-muted small mb-0">Won the Nasarawa State Best Public Primary School Award for academic excellence.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;border:1px solid var(--border);transition:var(--transition);" class="card-hover">
+          <div style="font-size:2.5rem;margin-bottom:10px;">📚</div>
+          <h6 class="fw-700 mb-2">100% Literacy Rate</h6>
+          <p class="text-muted small mb-0">Achieved 100% literacy rate for Primary 4-6 students over 3 consecutive years.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;border:1px solid var(--border);transition:var(--transition);" class="card-hover">
+          <div style="font-size:2.5rem;margin-bottom:10px;">⚽</div>
+          <h6 class="fw-700 mb-2">Sports Champions</h6>
+          <p class="text-muted small mb-0">Multiple winners of inter-school sports competitions at the LGA and State level.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;border:1px solid var(--border);transition:var(--transition);" class="card-hover">
+          <div style="font-size:2.5rem;margin-bottom:10px;">💻</div>
+          <h6 class="fw-700 mb-2">ICT Integration</h6>
+          <p class="text-muted small mb-0">Successfully integrated computer studies into the primary school curriculum.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;border:1px solid var(--border);transition:var(--transition);" class="card-hover">
+          <div style="font-size:2.5rem;margin-bottom:10px;">🌟</div>
+          <h6 class="fw-700 mb-2">Community Recognition</h6>
+          <p class="text-muted small mb-0">Recognised by the community for outstanding contribution to primary education.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

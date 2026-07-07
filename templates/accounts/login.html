@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ role|title }} Login{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block content %}
+<div class="login-shell">
+  <div class="login-card row g-0" data-aos="fade-up">
+    <div class="login-brand col-lg-5 d-flex flex-column justify-content-center">
+      <div class="brand-badge">L</div>
+      <h2 class="fw-bold mb-2">L.G.E.A STAFF SCHOOL</h2>
+      <h5 class="fw-semibold">Keffi, Nasarawa State</h5>
+      <p class="mt-3 mb-0 text-white-50">{{ role|title }} Login Portal</p>
+      <div class="mt-4 small text-white-50">
+        <div><i class="bi bi-shield-lock me-2"></i>Secure access for school management</div>
+        <div class="mt-2"><i class="bi bi-person-check me-2"></i>Role-based dashboard access</div>
+      </div>
+    </div>
+    <div class="login-form-panel col-lg-7">
+      <div class="text-center mb-4">
+        <h3 class="fw-bold mb-1">Welcome Back</h3>
+        <p class="text-muted mb-0">Sign in to access the school {{ role }} dashboard.</p>
+      </div>
+      <form method="post" id="loginForm">
+        <div class="text-end mb-3">
+          <a href="{% url 'accounts:login' %}" class="small text-decoration-none"><i class="bi bi-arrow-left me-1"></i>Back to Portals</a>
+        </div>
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" for="id_username">Username</label>
+          <input type="text" name="username" class="form-control" id="id_username" placeholder="Enter your username" required autocomplete="username">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="id_password">Password</label>
+          <div class="input-group">
+            <input type="password" name="password" class="form-control" id="id_password" placeholder="Enter your password" required autocomplete="current-password">
+            <button type="button" class="btn btn-outline-secondary password-toggle" id="togglePassword" tabindex="-1"><i class="bi bi-eye"></i></button>
+          </div>
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" name="remember_me" id="remember_me">
+          <label class="form-check-label" for="remember_me">Remember me</label>
+        </div>
+        {% if form.errors %}
+        <div class="alert alert-danger py-2 px-3 small border-0">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>Invalid username or password.
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-success w-100 py-2 fw-bold" id="loginButton">
+          <i class="bi bi-box-arrow-in-right me-2"></i>Login to Dashboard
+        </button>
+      </form>
+      <div class="text-center mt-4">
+        <a href="#" class="small text-muted">Forgot password?</a>
+      </div>
+      <div class="text-center mt-4 small text-muted">
+        <i class="bi bi-shield-shaded me-1"></i>Secure login protected by Django authentication.
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock %}

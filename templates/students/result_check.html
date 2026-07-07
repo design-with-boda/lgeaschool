@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}Check Results{% endblock %}
+{% block content %}
+<div class="page-header mb-0">
+  <div class="container" style="position:relative;z-index:2;">
+    <h1 class="mb-2">Student Result Checker</h1>
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">Results</li></ol></nav>
+  </div>
+</div>
+<div style="height:40px;"></div>
+<section class="section-padding">
+  <div class="container">
+    <!-- Search Form -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-7" data-aos="fade-up">
+        <div class="p-4 p-lg-5" style="background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--border);">
+          <div class="text-center mb-4">
+            <div style="font-size:3rem;margin-bottom:8px;">📋</div>
+            <h4 class="fw-800 mb-1">Check Your Result</h4>
+            <p class="text-muted small">Enter your Student ID to view your academic results</p>
+          </div>
+          <form method="get" id="resultForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-600">Student ID <span class="text-danger">*</span></label>
+                <input type="text" name="student_id" class="form-control" value="{{ student_id }}" placeholder="e.g. LGEA/2024/0001" required>
+                <div class="form-text">Format: LGEA/YEAR/NUMBER</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">Academic Session</label>
+                <select name="session" class="form-select">
+                  <option value="">-- Current Session --</option>
+                  {% for s in sessions %}
+                  <option value="{{ s.pk }}" {% if session and session.pk == s.pk %}selected{% endif %}>{{ s }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-700"><i class="bi bi-search me-2"></i>Search Results</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Display -->
+    {% if student_id %}
+      {% if student %}
+      <div data-aos="fade-up">
+        <!-- Student Info Card -->
+        <div class="p-4 mb-4" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-radius:var(--radius-lg);color:#fff;">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h5 class="fw-800 mb-1">{{ student.full_name }}</h5>
+              <p style="opacity:0.85;margin-bottom:4px;"><i class="bi bi-person-badge me-2"></i>{{ student.student_id }}</p>
+              <p style="opacity:0.85;margin-bottom:4px;"><i class="bi bi-mortarboard me-2"></i>{{ student.current_class }}</p>
+              <p style="opacity:0.85;margin-bottom:0;"><i class="bi bi-calendar3 me-2"></i>Academic Year: {{ session|default:"Current Session" }}</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+              {% if session %}
+              <span class="badge" style="background:var(--accent);color:var(--primary-dark);font-size:1rem;padding:8px 18px;border-radius:10px;">{{ session.term }} Term</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        {% if results %}
+        <!-- Results Table -->
+        <div class="table-responsive" style="border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);">
+          <table class="table table-hover result-table mb-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Subject</th>
+                <th class="text-center">CA 1 (10)</th>
+                <th class="text-center">CA 2 (10)</th>
+                <th class="text-center">Assignment (10)</th>
+                <th class="text-center">Practical (10)</th>
+                <th class="text-center">Exam (60)</th>
+                <th class="text-center">Total (100)</th>
+                <th class="text-center">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for result in results %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td class="fw-600">{{ result.subject.name }}</td>
+                <td class="text-center">{{ result.ca1_score }}</td>
+                <td class="text-center">{{ result.ca2_score }}</td>
+                <td class="text-center">{{ result.assignment_score }}</td>
+                <td class="text-center">{{ result.practical_score }}</td>
+                <td class="text-center">{{ result.exam_score }}</td>
+                <td class="text-center fw-800">{{ result.total_score }}</td>
+                <td class="text-center">
+                  <span class="badge grade-{{ result.grade|lower }} px-2 py-1" style="font-size:0.88rem;">{{ result.grade }}</span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-3 p-3" style="background:#fff;border-radius:var(--radius);border:1px solid var(--border);">
+          <small class="text-muted"><strong>Grade Key:</strong> A = 80-100 (Excellent) | B = 70-79 (Very Good) | C = 60-69 (Good) | D = 50-59 (Pass) | E = 40-49 (Below Average) | F = 0-39 (Fail)</small>
+        </div>
+        {% else %}
+        <div class="text-center p-5" style="background:#fff;border-radius:var(--radius);"><div style="font-size:3rem;margin-bottom:12px;">📭</div><h6 class="fw-700">No results found for this session.</h6><p class="text-muted small">Results for this student have not been entered yet. Please check again later or contact the school.</p></div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="text-center p-5" style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);" data-aos="fade-up">
+        <div style="font-size:3rem;margin-bottom:12px;">❌</div>
+        <h5 class="fw-700 text-danger">Student Not Found</h5>
+        <p class="text-muted">No student found with ID <strong>{{ student_id }}</strong>. Please check the ID and try again.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-sm btn-primary mt-2"><i class="bi bi-telephone me-2"></i>Contact School</a>
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
