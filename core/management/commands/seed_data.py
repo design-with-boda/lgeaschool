@@ -90,12 +90,13 @@ class Command(BaseCommand):
             admin = User.objects.create_superuser(
                 username='admin',
                 email='admin@lgeastaffschoolkeffi.edu.ng',
-                password='Admin@2025!',
+                password=None,
                 first_name='School',
                 last_name='Administrator'
             )
             UserProfile.objects.create(user=admin, role='admin')
-            self.stdout.write('  ✔ Admin user created (username: admin, password: Admin@2025!)')
+            self.stdout.write('  ✔ Admin user created (username: admin)')
+            self.stdout.write('  ⚠  No password set — run: python manage.py changepassword admin')
         else:
             self.stdout.write('  ℹ Admin user already exists')
 
@@ -214,7 +215,7 @@ class Command(BaseCommand):
         self.stdout.write('  ✔ Gallery categories created')
 
         self.stdout.write(self.style.SUCCESS('\n✅ Database seeded successfully!'))
-        self.stdout.write(self.style.WARNING('\n🔐 Login Credentials:'))
-        self.stdout.write('   Admin:   username=admin  password=Admin@2025!')
+        self.stdout.write(self.style.WARNING('\n🔐 Set your admin password:'))
+        self.stdout.write('   Run: python manage.py changepassword admin')
         self.stdout.write('   Access the admin panel at: http://127.0.0.1:8000/admin/')
         self.stdout.write('   View the portal at:        http://127.0.0.1:8000/')
