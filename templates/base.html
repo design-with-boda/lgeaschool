@@ -18,6 +18,15 @@
 </head>
 <body>
 
+<!-- ── Watermark ── -->
+<div class="site-watermark">
+  {% if school_info.logo %}
+    <img src="{{ school_info.logo.url }}" alt="Watermark">
+  {% else %}
+    <img src="{% static 'images/logo.png' %}" alt="Watermark" onerror="this.style.display='none'">
+  {% endif %}
+</div>
+
 <!-- ── Announcement Ticker ── -->
 {% if announcements %}
 <div class="announcement-bar d-none d-md-block">
@@ -37,7 +46,9 @@
       {% if school_info.logo %}
         <img src="{{ school_info.logo.url }}" alt="School Logo" class="navbar-brand-logo">
       {% else %}
-        <div class="navbar-brand-logo d-flex align-items-center justify-content-center" style="background:linear-gradient(135deg,#004d2d,#006B3F);font-size:1.4rem;font-weight:900;color:#FFD700;">
+        <img src="{% static 'images/logo.png' %}" alt="L.G.E.A Staff School Keffi Logo" class="navbar-brand-logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="navbar-brand-logo d-flex align-items-center justify-content-center" style="display:none!important;background:linear-gradient(135deg,#004d2d,#006B3F);font-size:1.4rem;font-weight:900;color:#FFD700;">
           L
         </div>
       {% endif %}
@@ -107,7 +118,9 @@
     <div class="row g-4">
       <div class="col-lg-4 col-md-6">
         <div class="d-flex align-items-center gap-3 mb-3">
-          <div style="width:50px;height:50px;background:linear-gradient(135deg,#006B3F,#00a854);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#FFD700;font-size:1.3rem;">L</div>
+          <img src="{% static 'images/logo.png' %}" alt="L.G.E.A Staff School Logo"
+               style="width:60px;height:60px;object-fit:contain;filter:brightness(0) invert(1);"
+               onerror="this.style.display='none';">
           <div>
             <div class="footer-logo-name">L.G.E.A STAFF SCHOOL</div>
             <div class="footer-logo-sub">Keffi, Nasarawa State</div>

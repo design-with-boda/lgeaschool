@@ -5,14 +5,20 @@ L.G.E.A STAFF SCHOOL, KEFFI NASARAWA STATE
 
 from pathlib import Path
 import os
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-lgea-staff-school-keffi-nasarawa-2024-secret-key-change-in-production'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-lgea-staff-school-keffi-nasarawa-2024-secret-key-change-in-production')
 
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '.vercel.app', '.now.sh']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vercel.app',
+    'https://*.now.sh',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
